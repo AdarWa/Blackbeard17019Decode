@@ -19,7 +19,7 @@ public class ExampleAutonomous extends LinearOpMode {
 
 
     }
-
+/*
     @Override
     public void init() {
 
@@ -37,5 +37,5 @@ public class ExampleAutonomous extends LinearOpMode {
     @Override
     public void stop() {
         drive.stop();
-    }
+    }*/
 }

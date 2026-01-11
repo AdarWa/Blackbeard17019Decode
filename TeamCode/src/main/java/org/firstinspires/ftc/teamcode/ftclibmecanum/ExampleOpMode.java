@@ -33,28 +33,30 @@ public class ExampleOpMode extends OpMode {
         driver.readButtons();
         operator.readButtons();
         drive.driveFieldCentric(
-                driver.getLeftX(),
-               -driver.getLeftY(),
-                driver.getRightX());
+                -driver.getLeftX() / 4,
+                -driver.getLeftY() / 4,
+                driver.getRightX() / 4);
 
-        boolean isIntakeActive = operator.isDown(GamepadKeys.Button.A);
-
-        if (isIntakeActive) {
-            intake.start();
-        } else {
-          intake.stop();
+        if (operator.isDown(GamepadKeys.Button.A)) {
+            intake.on();
+        }
+        else {
+            intake.off();
         }
 
         double shooterPower = -operator.getLeftY() * maxShooterVelocity;
         shooter.setVelocity(shooterPower);
 
         shooter.periodic();
+
+        telemetry.addData("Rotation",drive.getRobotHeading());
+        telemetry.update();
     }
 
     @Override
     public void stop() {
         shooter.stop();
-        intake.stop();
+        intake.off();
         drive.stop();
     }
 

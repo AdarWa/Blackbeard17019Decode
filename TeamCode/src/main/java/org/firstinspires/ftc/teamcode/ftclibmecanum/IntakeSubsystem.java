@@ -10,11 +10,11 @@ public class IntakeSubsystem {
         intakeMotor = new Motor(hardwareMap, "intake");
     }
 
-    public void start() {
+    public void on() {
         intakeMotor.set(1.0);
     }
 
-    public void stop() {
+    public void off() {
         intakeMotor.stopMotor();
     }
 }
