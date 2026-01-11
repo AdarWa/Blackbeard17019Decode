@@ -11,7 +11,7 @@ public class IntakeSubsystem {
     }
 
     public void on() {
-        intakeMotor.set(1.0);
+        intakeMotor.set(-1.0);
     }
 
     public void off() {

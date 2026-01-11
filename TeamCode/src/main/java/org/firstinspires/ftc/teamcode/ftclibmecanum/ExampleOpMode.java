@@ -33,9 +33,9 @@ public class ExampleOpMode extends OpMode {
         driver.readButtons();
         operator.readButtons();
         drive.driveFieldCentric(
-                -driver.getLeftX() / 4,
-                -driver.getLeftY() / 4,
-                driver.getRightX() / 4);
+                -driver.getLeftX() / 2,
+                -driver.getLeftY() / 2,
+                driver.getRightX() / 2);
 
         if (operator.isDown(GamepadKeys.Button.A)) {
             intake.on();
