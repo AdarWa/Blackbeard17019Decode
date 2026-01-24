@@ -16,6 +16,8 @@ public class ExampleOpMode extends OpMode {
     private IntakeSubsystem intake;
 
     double maxShooterVelocity;
+    private boolean isShooterRunning = false;
+
     @Override
     public void init() {
         driver = new GamepadEx(gamepad1);
@@ -26,6 +28,12 @@ public class ExampleOpMode extends OpMode {
         maxShooterVelocity = 62;
 
         drive.zeroHeading();
+    }
+    public double rpmToAngularVelocity (double rpm) {
+        return 120*Math.PI*rpm ;
+    }
+    public double angularVelocityToRpm (double angularVelocity){
+        return angularVelocity/120/Math.PI;
     }
 
     @Override
@@ -43,13 +51,23 @@ public class ExampleOpMode extends OpMode {
         else {
             intake.off();
         }
-
-        double shooterPower = -operator.getLeftY() * maxShooterVelocity;
-        shooter.setVelocity(shooterPower);
+        if (operator.wasJustPressed(GamepadKeys.Button.B)&&
+                !isShooterRunning){
+            //shooter.setVelocity(rpmToAngularVelocity(maxShooterVelocity));
+            shooter.setShooterPower(1.0);
+            isShooterRunning=true;
+        } else if (operator.wasJustPressed(GamepadKeys.Button.B)&&
+                   isShooterRunning){
+            shooter.stop();
+            isShooterRunning = false;
+        }
+        //double shooterPower = -operator.getLeftY() * maxShooterVelocity;
+        //shooter.setShooterPower(shooterPower);
 
         shooter.periodic();
 
         telemetry.addData("Rotation",drive.getRobotHeading());
+        telemetry.addData("VelocityRPM", angularVelocityToRpm(shooter.getVelocity()));
         telemetry.update();
     }
 

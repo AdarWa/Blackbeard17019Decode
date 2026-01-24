@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class ShooterSubsystem {
     double Kf = 0 , Kp = 0 , Ki = 0 , Kd = 0;
-    private double tickPerCycle = 1;
+    private double tickPerCycle = 140; // motor is 28 ticks per cycle with a 5:1 gearbox
     private double tickToRad = 2 * Math.PI / tickPerCycle;
     boolean PIDActive = false;
     double velocityTarget = 0;
@@ -22,7 +22,8 @@ public class ShooterSubsystem {
     MotorEx shooterMotor;
 
     public ShooterSubsystem(HardwareMap hardwareMap) {
-        shooterMotor = new MotorEx(hardwareMap, "shooter", Motor.GoBILDA.RPM_312);
+        shooterMotor = new MotorEx(hardwareMap, "shooter");
+        shooterMotor.setInverted(true);
     }
 
     public void setShooterPower(double power){
@@ -34,10 +35,14 @@ public class ShooterSubsystem {
         PIDActive = true;
     }
 
+    public double getVelocity() {
+        return shooterMotor.getVelocity()*tickToRad;
+    }
+
     public void periodic () {
         if (PIDActive){
             setShooterPower(
-                    shooterPID.calculate(shooterMotor.getVelocity(), velocityTarget)
+                    shooterPID.calculate(getVelocity(), velocityTarget)
             );
         }
     }
