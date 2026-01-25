@@ -14,7 +14,7 @@ public class ExampleOpMode extends OpMode {
     private GamepadEx operator;
     private ShooterSubsystem shooter;
     private IntakeSubsystem intake;
-
+    private double manualShooterVel;
     double maxShooterVelocity;
     private boolean isShooterRunning = false;
 
@@ -25,16 +25,14 @@ public class ExampleOpMode extends OpMode {
         shooter = new ShooterSubsystem(hardwareMap);
         intake = new IntakeSubsystem(hardwareMap);
         drive = new MecanumDriveSubsystem(hardwareMap);
-        maxShooterVelocity = 62;
+
+        maxShooterVelocity = 0.9;
+        manualShooterVel = 0;
 
         drive.zeroHeading();
     }
-    public double rpmToAngularVelocity (double rpm) {
-        return 120*Math.PI*rpm ;
-    }
-    public double angularVelocityToRpm (double angularVelocity){
-        return angularVelocity/120/Math.PI;
-    }
+    public double rpmToAngularVelocity (double rpm) { return 120*Math.PI*rpm ; }
+    public double angularVelocityToRpm (double angularVelocity) { return angularVelocity/120/Math.PI; }
 
     @Override
     public void loop() {
@@ -51,23 +49,39 @@ public class ExampleOpMode extends OpMode {
         else {
             intake.off();
         }
-        if (operator.wasJustPressed(GamepadKeys.Button.B)&&
-                !isShooterRunning){
-            //shooter.setVelocity(rpmToAngularVelocity(maxShooterVelocity));
-            shooter.setShooterPower(1.0);
-            isShooterRunning=true;
-        } else if (operator.wasJustPressed(GamepadKeys.Button.B)&&
-                   isShooterRunning){
-            shooter.stop();
-            isShooterRunning = false;
+
+
+        if (operator.wasJustPressed(GamepadKeys.Button.X)) {
+            if (manualShooterVel < 5) {
+                manualShooterVel ++;
+            }
+        }
+        else if (operator.wasJustPressed(GamepadKeys.Button.Y)) {
+            if (manualShooterVel > 0) {
+                manualShooterVel --;
+            }
+        }
+        else {
+            if (operator.wasJustPressed(GamepadKeys.Button.B)&&
+                    !isShooterRunning){
+                //shooter.setVelocity(rpmToAngularVelocity(maxShooterVelocity));
+                shooter.setShooterPower((manualShooterVel / 5) * maxShooterVelocity);
+                isShooterRunning=true;
+            } else if (operator.wasJustPressed(GamepadKeys.Button.B)&&
+                    isShooterRunning){
+                shooter.stop();
+                isShooterRunning = false;
+            }
         }
         //double shooterPower = -operator.getLeftY() * maxShooterVelocity;
         //shooter.setShooterPower(shooterPower);
 
         shooter.periodic();
 
+        telemetry.addData("are mechanics are garbage?",true);
         telemetry.addData("Rotation",drive.getRobotHeading());
         telemetry.addData("VelocityRPM", angularVelocityToRpm(shooter.getVelocity()));
+        telemetry.addData("the max vel is 5 and your current fire speed is",manualShooterVel);
         telemetry.update();
     }
 
