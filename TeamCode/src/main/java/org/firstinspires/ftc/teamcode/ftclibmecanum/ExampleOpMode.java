@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@TeleOp(name = "Example Op Mode", group = "Examples")
+@TeleOp(name = "Op Mode", group = "MainS")
 public class ExampleOpMode extends OpMode {
 
     private MecanumDriveSubsystem drive;
