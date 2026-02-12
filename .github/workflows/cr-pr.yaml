@@ -1,0 +1,31 @@
+name: Create CR PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Base branch"
+        required: true
+        default: "main"
+      head:
+        description: "Head branch"
+        required: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base "${{ github.event.inputs.base }}" \
+            --head "${{ github.event.inputs.head }}" \
+            --title "Code Review" \
+            --body "Code Review"
