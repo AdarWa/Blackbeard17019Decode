@@ -20,11 +20,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Create Pull Request
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
+            --repo ${{ github.repository }} \
             --base "${{ github.event.inputs.base }}" \
             --head "${{ github.event.inputs.head }}" \
             --title "Code Review" \
