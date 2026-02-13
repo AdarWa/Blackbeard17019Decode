@@ -7,15 +7,16 @@ import static org.firstinspires.ftc.teamcode.ftclibmecanum.Time.waitTime;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="All hail Baruh (Gate Blue)" ,group="Auto")
+@Autonomous(name="All hail Baruh (Gate Blue)" ,group="Auto")
 public class AAAAAAAAAAAAAAAAAAAAAAAA {
     private MotorEx frontLeft;
     private MotorEx frontRight;
     private MotorEx backLeft;
     private MotorEx backRight;
-    private GamepadEx gamepad;
+
 
     private MotorEx shooter;
 
@@ -26,26 +27,29 @@ public class AAAAAAAAAAAAAAAAAAAAAAAA {
         frontRight = new MotorEx(hardwareMap,"frontRight");
         backLeft = new MotorEx(hardwareMap,"backLeft");
         backRight = new MotorEx(hardwareMap,"backRight");
-        gamepad = new GamepadEx(gamepad2);
         shooter = new MotorEx(hardwareMap,"shooter");
     }
 
     public void loop() {
         while (!IAmAVargion) {
-            frontRight.set(1);
-            backRight.set(1);
-            frontLeft.set(-1);
-            backLeft.set(-1);
-            waitTime(3);
-            frontRight.set(0);
-            backRight.set(0);
-            frontLeft.set(0);
-            backLeft.set(0);
+            turn_left(2);
             shooter.set(1);
             telemetry.addData("Huston we have liftoff",true);
             telemetry.update();
             break;
 
         }
+    }
+
+    public void turn_left(int seconds) {
+        frontRight.set(1);
+        backRight.set(1);
+        frontLeft.set(-1);
+        backLeft.set(-1);
+        waitTime(seconds);
+        frontRight.set(0);
+        backRight.set(0);
+        frontLeft.set(0);
+        backLeft.set(0);
     }
 }

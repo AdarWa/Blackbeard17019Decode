@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.ftclibmecanum.Time.waitTime;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -19,13 +20,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 
-@TeleOp(name = "NERDDDDDDDDDDDDDDDDD (Gate Red) ", group = "Auto")
+@Autonomous(name = "NERDDDDDDDDDDDDDDDDD (Gate Red) ", group = "Auto")
 public class OMFG_ITS_LAHAV {
     private MotorEx frontLeft;
     private MotorEx frontRight;
     private MotorEx backLeft;
     private MotorEx backRight;
-    private GamepadEx gamepad;
+
 
     private MotorEx shooter;
 
@@ -36,7 +37,6 @@ public class OMFG_ITS_LAHAV {
          frontRight = new MotorEx(hardwareMap,"frontRight");
          backLeft = new MotorEx(hardwareMap,"backLeft");
          backRight = new MotorEx(hardwareMap,"backRight");
-         gamepad = new GamepadEx(gamepad2);
          shooter = new MotorEx(hardwareMap,"shooter");
     }
 

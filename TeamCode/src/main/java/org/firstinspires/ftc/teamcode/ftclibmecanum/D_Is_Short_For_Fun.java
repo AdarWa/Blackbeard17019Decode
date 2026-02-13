@@ -7,16 +7,17 @@ import static org.firstinspires.ftc.teamcode.ftclibmecanum.Time.waitTime;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="WTF (Launch Zone Red)",group="Auto")
+@Autonomous(name="WTF (Launch Zone Red)",group="Auto")
 public class D_Is_Short_For_Fun
 {
     private MotorEx frontLeft;
     private MotorEx frontRight;
     private MotorEx backLeft;
     private MotorEx backRight;
-    private GamepadEx gamepad;
+
 
     private MotorEx shooter;
 
@@ -27,7 +28,7 @@ public class D_Is_Short_For_Fun
         frontRight = new MotorEx(hardwareMap,"frontRight");
         backLeft = new MotorEx(hardwareMap,"backLeft");
         backRight = new MotorEx(hardwareMap,"backRight");
-        gamepad = new GamepadEx(gamepad2);
+
         shooter = new MotorEx(hardwareMap,"shooter");
     }
 

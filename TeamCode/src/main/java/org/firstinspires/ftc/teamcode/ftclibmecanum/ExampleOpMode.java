@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ftclibmecanum;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.gamepad.KeyReader;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,9 +13,9 @@ public class ExampleOpMode extends OpMode {
     private MecanumDriveSubsystem drive;
     private GamepadEx driver;
     private GamepadEx operator;
-    private ShooterSubsystem shooter;
+    private shooterSubSystem shooter;
     private IntakeSubsystem intake;
-    private double manualShooterVel;
+    private double manualIntakeV;
     double maxShooterVelocity;
     private boolean isShooterRunning = false;
 
@@ -22,12 +23,12 @@ public class ExampleOpMode extends OpMode {
     public void init() {
         driver = new GamepadEx(gamepad1);
         operator = new GamepadEx(gamepad2);
-        shooter = new ShooterSubsystem(hardwareMap);
+        shooter = new shooterSubSystem();
         intake = new IntakeSubsystem(hardwareMap);
         drive = new MecanumDriveSubsystem(hardwareMap);
 
         maxShooterVelocity = 0.9;
-        manualShooterVel = 0;
+        manualIntakeV = 0;
 
         drive.zeroHeading();
     }
@@ -44,52 +45,41 @@ public class ExampleOpMode extends OpMode {
                 driver.getRightX() / 2);
 
         if (operator.isDown(GamepadKeys.Button.A)) {
-            intake.on();
-        }
-        else {
+            intake.setIntakeVelocity(manualIntakeV);
+        } else {
             intake.off();
         }
 
 
         if (operator.wasJustPressed(GamepadKeys.Button.X)) {
-            if (manualShooterVel < 5) {
-                manualShooterVel ++;
+            if (manualIntakeV < 5) {
+                manualIntakeV++;
+            }
+        } else if (operator.wasJustPressed(GamepadKeys.Button.Y)) {
+            if (manualIntakeV > 0) {
+                manualIntakeV--;
+            }
+        } else {
+            if (operator.wasJustPressed(GamepadKeys.Button.B)) {
+                shooter.setShooterVelocity(0.8);
             }
         }
-        else if (operator.wasJustPressed(GamepadKeys.Button.Y)) {
-            if (manualShooterVel > 0) {
-                manualShooterVel --;
-            }
-        }
-        else {
-            if (operator.wasJustPressed(GamepadKeys.Button.B)&&
-                    !isShooterRunning){
-                //shooter.setVelocity(rpmToAngularVelocity(maxShooterVelocity));
-                shooter.setShooterPower((manualShooterVel / 5) * maxShooterVelocity);
-                isShooterRunning=true;
-            } else if (operator.wasJustPressed(GamepadKeys.Button.B)&&
-                    isShooterRunning){
-                shooter.stop();
-                isShooterRunning = false;
-            }
-        }
-        //double shooterPower = -operator.getLeftY() * maxShooterVelocity;
-        //shooter.setShooterPower(shooterPower);
 
-        shooter.periodic();
-
-        telemetry.addData("are mechanics are garbage?",true);
-        telemetry.addData("Rotation",drive.getRobotHeading());
-        telemetry.addData("VelocityRPM", angularVelocityToRpm(shooter.getVelocity()));
-        telemetry.addData("the max vel is 5 and your current fire speed is",manualShooterVel);
+        telemetry.addData("are mechanics are garbage?", true);
+        telemetry.addData("Rotation", drive.getRobotHeading());
         telemetry.update();
     }
+        public void stop() {
+            shooter.stop();
+            intake.off();
+            drive.stop();
+        }
 
-    @Override
-    public void stop() {
-        shooter.stop();
-        intake.off();
-        drive.stop();
+        public void TERMINATE() {
+        if(operator.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
+            stop();
+        }
+
+    }
     }
 
-}
