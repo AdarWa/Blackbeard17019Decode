@@ -24,21 +24,10 @@ public class AAAAAAAAAAAAAAAAAAAAAAAA {
 
     public void init() {
         frontLeft = new MotorEx(hardwareMap, "frontLeft");
-        frontRight = new MotorEx(hardwareMap,"frontRight");
-        backLeft = new MotorEx(hardwareMap,"backLeft");
-        backRight = new MotorEx(hardwareMap,"backRight");
-        shooter = new MotorEx(hardwareMap,"shooter");
-    }
-
-    public void loop() {
-        while (!IAmAVargion) {
-            turn_left(2);
-            shooter.set(1);
-            telemetry.addData("Huston we have liftoff",true);
-            telemetry.update();
-            break;
-
-        }
+        frontRight = new MotorEx(hardwareMap, "frontRight");
+        backLeft = new MotorEx(hardwareMap, "backLeft");
+        backRight = new MotorEx(hardwareMap, "backRight");
+        shooter = new MotorEx(hardwareMap, "shooter");
     }
 
     public void turn_left(int seconds) {
@@ -51,5 +40,16 @@ public class AAAAAAAAAAAAAAAAAAAAAAAA {
         backRight.set(0);
         frontLeft.set(0);
         backLeft.set(0);
+    }
+
+    public void loop() {
+        while (!IAmAVargion) {
+            turn_left(2);
+            shooter.set(1);
+            telemetry.addData("Huston we have liftoff", true);
+            telemetry.update();
+            break;
+
+        }
     }
 }

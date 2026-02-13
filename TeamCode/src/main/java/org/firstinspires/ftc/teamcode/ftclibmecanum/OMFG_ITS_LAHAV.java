@@ -39,24 +39,28 @@ public class OMFG_ITS_LAHAV {
          backRight = new MotorEx(hardwareMap,"backRight");
          shooter = new MotorEx(hardwareMap,"shooter");
     }
+    public void turn_right(int seconds) {
+        frontRight.set(-1);
+        backRight.set(-1);
+        frontLeft.set(1);
+        backLeft.set(1);
+        waitTime(seconds);
+        frontRight.set(0);
+        backRight.set(0);
+        frontLeft.set(0);
+        backLeft.set(0);
+    }
 
-    public void loop() {
+    public void loop(int seconds) {
         while (!IAmAVargion) {
-            frontRight.set(-1);
-            backRight.set(-1);
-            frontLeft.set(1);
-            backLeft.set(1);
-            waitTime(3);
-            frontRight.set(0);
-            backRight.set(0);
-            frontLeft.set(0);
-            backLeft.set(0);
+            turn_right(2);
             shooter.set(1);
-            telemetry.addData("Huston we have liftoff",true);
+            telemetry.addData("Huston we have liftoff", true);
             telemetry.update();
             break;
 
         }
+
     }
 }
 
