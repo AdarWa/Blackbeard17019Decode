@@ -25,7 +25,7 @@ public class MecanumDriveSubsystem {
 
         drive = new MecanumDrive(frontLeft, frontRight, backLeft, backRight);
 
-        imu = new RevIMU(hardwareMap, "imu");
+        imu = new RevIMU(hardwareMap, "IMU");
         imu.init();
         headingOffset = 0.0;
     }
@@ -34,8 +34,8 @@ public class MecanumDriveSubsystem {
         headingOffset = imu.getHeading();
     }
 
-    private double getRobotHeading() {
-        return imu.getHeading() - headingOffset;
+    public double getRobotHeading() {
+        return imu.getHeading() + headingOffset;
     }
 
     public void driveFieldCentric(double strafe, double forward, double turn) {
