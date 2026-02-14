@@ -16,8 +16,9 @@ public class ExampleOpMode extends OpMode {
     private shooterSubSystem shooter;
     private IntakeSubsystem intake;
     private double manualIntakeV;
-    double maxShooterVelocity;
     private boolean isShooterRunning = false;
+
+    private MovementSubsystem WOOSH;
 
     @Override
     public void init() {
@@ -27,7 +28,6 @@ public class ExampleOpMode extends OpMode {
         intake = new IntakeSubsystem(hardwareMap);
         drive = new MecanumDriveSubsystem(hardwareMap);
 
-        maxShooterVelocity = 0.9;
         manualIntakeV = 0;
 
         drive.zeroHeading();
@@ -55,13 +55,33 @@ public class ExampleOpMode extends OpMode {
             if (manualIntakeV < 5) {
                 manualIntakeV++;
             }
-        } else if (operator.wasJustPressed(GamepadKeys.Button.Y)) {
+        } if (operator.wasJustPressed(GamepadKeys.Button.Y)) {
             if (manualIntakeV > 0) {
                 manualIntakeV--;
             }
-        } else {
+        }  {
             if (operator.wasJustPressed(GamepadKeys.Button.B)) {
                 shooter.setShooterVelocity(0.8);
+            }
+
+            if (driver.wasJustPressed(GamepadKeys.Button.START)) {
+                stop();
+            }
+
+            if (driver.isDown(GamepadKeys.Button.DPAD_UP)) {
+                WOOSH.move_forward(1, 1);
+            }
+
+            if (driver.isDown(GamepadKeys.Button.DPAD_DOWN)) {
+                WOOSH.move_backwards(1, 1);
+            }
+
+            if (driver.isDown(GamepadKeys.Button.DPAD_LEFT)) {
+                WOOSH.strafe_left(1, 1);
+            }
+
+            if (driver.isDown(GamepadKeys.Button.DPAD_RIGHT)) {
+                WOOSH.strafe_right(1, 1);
             }
         }
 
@@ -75,11 +95,5 @@ public class ExampleOpMode extends OpMode {
             drive.stop();
         }
 
-        public void TERMINATE() {
-        if(operator.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
-            stop();
-        }
-
-    }
     }
 

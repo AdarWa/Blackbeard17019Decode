@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-@TeleOp(name = "Example Op Mode", group = "Examples")
+@TeleOp(name = "MAG", group = "BULLSHIT")
 public class MechanicsAreGarbage extends OpMode {
 
     private MotorEx frontLeft;

@@ -20,47 +20,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 
-@Autonomous(name = "NERDDDDDDDDDDDDDDDDD (Gate Red) ", group = "Auto")
-public class OMFG_ITS_LAHAV {
-    private MotorEx frontLeft;
-    private MotorEx frontRight;
-    private MotorEx backLeft;
-    private MotorEx backRight;
-
-
+@Autonomous
+public class OMFG_ITS_LAHAV extends OpMode {
+    private MovementSubsystem WOOSH;
     private MotorEx shooter;
-
     private boolean IAmAVargion = false;
 
     public void init() {
-         frontLeft = new MotorEx(hardwareMap, "frontLeft");
-         frontRight = new MotorEx(hardwareMap,"frontRight");
-         backLeft = new MotorEx(hardwareMap,"backLeft");
-         backRight = new MotorEx(hardwareMap,"backRight");
          shooter = new MotorEx(hardwareMap,"shooter");
     }
-    public void turn_right(int seconds) {
-        frontRight.set(-1);
-        backRight.set(-1);
-        frontLeft.set(1);
-        backLeft.set(1);
-        waitTime(seconds);
-        frontRight.set(0);
-        backRight.set(0);
-        frontLeft.set(0);
-        backLeft.set(0);
-    }
 
-    public void loop(int seconds) {
+    @Override
+    public void loop() {
         while (!IAmAVargion) {
-            turn_right(2);
-            shooter.set(1);
+            WOOSH.turn_right(2 ,0.5);
+            shooter.setVelocity(1);
             telemetry.addData("Huston we have liftoff", true);
             telemetry.update();
             break;
-
         }
-
     }
 }
 
