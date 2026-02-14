@@ -12,7 +12,7 @@ public class MovementSubsystem {
     private MotorEx backLeft;
     private MotorEx backRight;
 
-    public void init() {
+    public MovementSubsystem(HardwareMap hardwareMap) {
         frontLeft = new MotorEx(hardwareMap, "frontLeft");
         frontRight = new MotorEx(hardwareMap, "frontRight");
         backLeft = new MotorEx(hardwareMap, "backLeft");

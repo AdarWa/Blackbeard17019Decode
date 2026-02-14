@@ -6,17 +6,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class IntakeSubsystem {
 
-    private final MotorEx intakeMotor;
+    private final Motor intakeMotor;
     public IntakeSubsystem(HardwareMap hardwareMap) {
-        intakeMotor = new MotorEx(hardwareMap, "intake");
+        intakeMotor = new Motor(hardwareMap, "intake");
     }
 
     public void setIntakeVelocity(double V) {
-        intakeMotor.setVelocity(V);
+        intakeMotor.set(V);
     }
 
     public void off() {
 
-        intakeMotor.setVelocity(0);
+        intakeMotor.set(0);
     }
 }
