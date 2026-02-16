@@ -38,8 +38,8 @@ public class MecanumDriveSubsystem {
         return imu.getHeading() + headingOffset;
     }
 
-    public void driveFieldCentric(double strafe, double forward, double turn) {
-        drive.driveFieldCentric(strafe, forward, turn, getRobotHeading());
+    public void driveRobotCentric(double strafe, double forward, double turn) {
+        drive.driveRobotCentric(strafe, forward, turn, getRobotHeading());
     }
 
     public void stop() {

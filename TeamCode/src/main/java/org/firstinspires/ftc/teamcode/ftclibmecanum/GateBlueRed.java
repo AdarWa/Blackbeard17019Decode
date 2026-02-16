@@ -10,20 +10,21 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 @Autonomous
-public class IM_GONNA_JUMP_YOUR_CABLE extends OpMode {
-    private MotorEx shooter;
-    private boolean IAmAVargion = false;
-    private MovementSubsystem WOOSH;
+public class GateBlueRed extends opMode{
 
+    private MotorEx shooter;
+    private boolean HowYouDoing = false;
+    private Movementsubsystem WHOOSH
     public void init() {
+
         shooter = new MotorEx(hardwareMap, "shooter");
+
     }
+
     public void loop() {
-        while (!IAmAVargion) {
-            WOOSH.move_forward(2, 0.5);
-            WOOSH.turn_left(2 , 0.5);
+        while(HowYouDoing){
+            WHOOSH.move_forward(2,0.5);
             shooter.setVelocity(1);
             telemetry.addData("Huston we have liftoff", true);
             telemetry.update();
@@ -31,3 +32,5 @@ public class IM_GONNA_JUMP_YOUR_CABLE extends OpMode {
         }
     }
 }
+
+

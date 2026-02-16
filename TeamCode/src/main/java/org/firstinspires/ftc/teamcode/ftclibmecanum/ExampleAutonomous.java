@@ -27,7 +27,7 @@ public class ExampleAutonomous extends LinearOpMode {
 
     @Override
     public void loop() {
-        drive.driveFieldCentric(0, 0.5,0);
+        drive.driveRobotCentric(0, 0.5,0);
         waitTime(1);
         drive.stop();
         while ()
