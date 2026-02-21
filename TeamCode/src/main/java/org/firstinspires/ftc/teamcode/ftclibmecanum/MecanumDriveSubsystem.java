@@ -27,7 +27,7 @@ public class MecanumDriveSubsystem {
             frontLeft.set(V);
             backLeft.set(V);
         }
-        else {
+        if (V < 0.05) {
             frontRight.set(V);
             backRight.set(V);
             frontLeft.set(-V);
@@ -42,7 +42,9 @@ public class MecanumDriveSubsystem {
             if (VX > 0.1) {
                 backLeft.set(VX);
                 frontRight.set(VX);
-            } else {
+            }
+
+            else {
                 backLeft.set(VY);
                 frontRight.set(VY);
             }

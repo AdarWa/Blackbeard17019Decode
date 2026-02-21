@@ -32,27 +32,35 @@ public class ExampleOpMode extends OpMode {
         drive.move(gamepad1.left_stick_x, gamepad1.left_stick_y);
         drive.rotate(gamepad1.right_stick_x);
 
-        if (operator.isDown(GamepadKeys.Button.A)) {
+        if (operator.isDown(GamepadKeys.Button.B)) {
             intake.setIntakeVelocity(1.0);
-        } else {
+        }
+
+        else {
             intake.off();
         }
 
-        if (operator.isDown(GamepadKeys.Button.X)) {
+        if (operator.isDown(GamepadKeys.Button.Y)) {
             intake.setIntakeVelocity(0.2);
-        } else {
+        }
+
+        else {
             intake.setIntakeVelocity(0);
         }
 
-        if (operator.isDown(GamepadKeys.Button.B)) {
+        if (operator.isDown(GamepadKeys.Button.A)) {
             shooter.setShooterVelocity(CLOSE_TO_TARGET_VELOCITY);
-        } else {
+        }
+
+        else {
             shooter.stop();
         }
 
-        if (operator.isDown(GamepadKeys.Button.Y)) {
+        if (operator.isDown(GamepadKeys.Button.X)) {
             shooter.setShooterVelocity(FAR_FROM_TARGET_VELOCITY);
-        } else {
+        }
+
+        else {
             shooter.stop();
         }
 
@@ -61,4 +69,3 @@ public class ExampleOpMode extends OpMode {
 
     }
 }
-
