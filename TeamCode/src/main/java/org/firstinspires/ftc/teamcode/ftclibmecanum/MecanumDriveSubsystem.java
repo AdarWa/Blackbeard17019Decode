@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ftclibmecanum;
 import static com.sun.tools.doclint.Entity.and;
 import static org.firstinspires.ftc.teamcode.ftclibmecanum.Time.waitTime;
 
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -13,11 +14,22 @@ public class MecanumDriveSubsystem {
     private MotorEx frontRight;
     private MotorEx backRight;
 
+    private MecanumDrive drive;
+
     public MecanumDriveSubsystem(HardwareMap hardwareMap) {
         frontLeft = new MotorEx(hardwareMap, "frontLeft");
         frontRight = new MotorEx(hardwareMap, "frontRight");
         backLeft = new MotorEx(hardwareMap, "backLeft");
         backRight = new MotorEx(hardwareMap, "backRight");
+        drive = new MecanumDrive(frontLeft, frontRight, backLeft, backRight);
+    }
+
+    public void driveRobotCentric(double forward, double strafe, double turn){
+        drive.driveRobotCentric(strafe, forward, turn);
+    }
+
+    public void stop() {
+        drive.stop();
     }
 
     public void rotate(double V){

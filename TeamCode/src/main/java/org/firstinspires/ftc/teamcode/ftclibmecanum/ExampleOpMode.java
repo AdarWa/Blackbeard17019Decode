@@ -29,43 +29,38 @@ public class ExampleOpMode extends OpMode {
     public void loop() {
         driver.readButtons();
         operator.readButtons();
-        drive.move(gamepad1.left_stick_x, gamepad1.left_stick_y);
-        drive.rotate(gamepad1.right_stick_x);
+        drive.driveRobotCentric(operator.getLeftY(), operator.getLeftX(), operator.getRightX());
 
         if (operator.isDown(GamepadKeys.Button.B)) {
             intake.setIntakeVelocity(1.0);
-        }
-
-        else {
+        } else {
             intake.off();
         }
 
         if (operator.isDown(GamepadKeys.Button.Y)) {
             intake.setIntakeVelocity(0.2);
-        }
-
-        else {
+        } else {
             intake.setIntakeVelocity(0);
         }
 
         if (operator.isDown(GamepadKeys.Button.A)) {
             shooter.setShooterVelocity(CLOSE_TO_TARGET_VELOCITY);
-        }
-
-        else {
+        } else {
             shooter.stop();
         }
 
         if (operator.isDown(GamepadKeys.Button.X)) {
             shooter.setShooterVelocity(FAR_FROM_TARGET_VELOCITY);
-        }
-
-        else {
+        } else {
             shooter.stop();
         }
+    }
 
-        telemetry.addData("are mechanics are garbage?", true);
-        telemetry.update();
 
+    @Override
+    public void stop(){
+        shooter.stop();
+        intake.off();
+        drive.stop();
     }
 }

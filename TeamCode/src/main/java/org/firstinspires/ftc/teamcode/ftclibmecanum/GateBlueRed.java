@@ -8,30 +8,27 @@ import static org.firstinspires.ftc.teamcode.ftclibmecanum.Time.waitTime;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @Autonomous
-public class GateBlueRed extends OpMode{
+public class GateBlueRed extends LinearOpMode {
 
     private MotorEx shooter;
-    private boolean HowYouDoing = false;
-    private MovementSubsystem WHOOSH;
+    private MovementSubsystem drive;
 
-    public void init() {
-
+    @Override
+    public void runOpMode() throws InterruptedException {
+        drive = new MovementSubsystem(hardwareMap);
         shooter = new MotorEx(hardwareMap, "shooter");
-
-    }
-
-    public void loop() {
-        while(HowYouDoing){
-            WHOOSH.move_forward(2,0.5);
+        waitForStart();
+        while(opModeIsActive() && !isStopRequested()){
+            drive.move_forward(2,0.5);
             shooter.setVelocity(1);
-            telemetry.addData("Huston we have liftoff", true);
-            telemetry.update();
-            break;
         }
+        drive.stop();
     }
+
 }
 
 

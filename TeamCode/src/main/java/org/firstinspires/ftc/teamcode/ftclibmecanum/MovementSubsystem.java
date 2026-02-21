@@ -85,4 +85,11 @@ public class MovementSubsystem {
         backLeft.setVelocity(0);
         backRight.setVelocity(0);
     }
+
+    public void stop(){
+        frontRight.stopMotor();
+        frontLeft.stopMotor();
+        backLeft.stopMotor();
+        backRight.stopMotor();
+    }
 }
