@@ -11,11 +11,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @Autonomous
-public class GateBlueRed extends opMode{
+public class GateBlueRed extends OpMode{
 
     private MotorEx shooter;
     private boolean HowYouDoing = false;
-    private Movementsubsystem WHOOSH
+    private MovementSubsystem WHOOSH;
+
     public void init() {
 
         shooter = new MotorEx(hardwareMap, "shooter");

@@ -13,7 +13,7 @@ public class shooterSubSystem {
     }
 
     public void setShooterVelocity(double V){
-            shooter.set(V);
+        shooter.set(V);
     }
 
     public void stop() {

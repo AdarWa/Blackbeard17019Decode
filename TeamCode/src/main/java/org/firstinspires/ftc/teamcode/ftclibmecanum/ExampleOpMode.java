@@ -5,7 +5,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Op Mode", group = "MainS")
+@TeleOp(name = "Op Mode", group = "Main")
 public class ExampleOpMode extends OpMode {
 
     private MecanumDriveSubsystem drive;
@@ -13,8 +13,8 @@ public class ExampleOpMode extends OpMode {
     private GamepadEx operator;
     private shooterSubSystem shooter;
     private IntakeSubsystem intake;
-    private final double CLOSE_TO_TARGET_VELOCITY = 0.8;
-    private final double FAR_FROM_TARGET_VELOCITY = 0.5;
+    private final double CLOSE_TO_TARGET_VELOCITY = 0.1;
+    private final double FAR_FROM_TARGET_VELOCITY = 1;
 
     @Override
     public void init() {
@@ -23,47 +23,42 @@ public class ExampleOpMode extends OpMode {
         shooter = new shooterSubSystem();
         intake = new IntakeSubsystem(hardwareMap);
         drive = new MecanumDriveSubsystem(hardwareMap);
-
-
-        drive.zeroHeading();
     }
 
     @Override
     public void loop() {
         driver.readButtons();
         operator.readButtons();
-        drive.driveFieldCentric(
-                -driver.getLeftX() / 2,
-                -driver.getLeftY() / 2,
-                driver.getRightX() / 2);
+        drive.move(gamepad1.left_stick_x, gamepad1.left_stick_y);
+        drive.rotate(gamepad1.right_stick_x);
 
-        if(driver.isDown(GamepadKeys.Button.Y)){
-            drive.zeroHeading();
-        }
-
-        if (operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.7) {
+        if (operator.isDown(GamepadKeys.Button.A)) {
             intake.setIntakeVelocity(1.0);
         } else {
             intake.off();
         }
 
-        if(operator.isDown(GamepadKeys.Button.A)){
+        if (operator.isDown(GamepadKeys.Button.X)) {
+            intake.setIntakeVelocity(0.2);
+        } else {
+            intake.setIntakeVelocity(0);
+        }
+
+        if (operator.isDown(GamepadKeys.Button.B)) {
             shooter.setShooterVelocity(CLOSE_TO_TARGET_VELOCITY);
-        }else if(operator.isDown(GamepadKeys.Button.B)){
+        } else {
+            shooter.stop();
+        }
+
+        if (operator.isDown(GamepadKeys.Button.Y)) {
             shooter.setShooterVelocity(FAR_FROM_TARGET_VELOCITY);
-        }else{
+        } else {
             shooter.stop();
         }
 
         telemetry.addData("are mechanics are garbage?", true);
-        telemetry.addData("Rotation", drive.getRobotHeading());
         telemetry.update();
-    }
-        public void stop() {
-            shooter.stop();
-            intake.off();
-            drive.stop();
-        }
 
     }
+}
 
