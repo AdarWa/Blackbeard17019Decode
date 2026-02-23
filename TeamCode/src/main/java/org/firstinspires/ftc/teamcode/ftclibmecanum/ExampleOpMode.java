@@ -29,7 +29,7 @@ public class ExampleOpMode extends OpMode {
     public void loop() {
         driver.readButtons();
         operator.readButtons();
-        drive.driveRobotCentric(operator.getLeftY(), operator.getLeftX(), operator.getRightX());
+        drive.driveRobotCentric(driver.getLeftY(), driver.getLeftX(), driver.getRightX());
 
         if (operator.isDown(GamepadKeys.Button.B)) {
             intake.setIntakeVelocity(1.0);
