@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.ftclibmecanum;
 
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class IntakeSubsystem {
@@ -10,11 +11,12 @@ public class IntakeSubsystem {
         intakeMotor = new Motor(hardwareMap, "intake");
     }
 
-    public void start() {
-        intakeMotor.set(1.0);
+    public void setIntakeVelocity(double V) {
+        intakeMotor.set(V);
     }
 
-    public void stop() {
-        intakeMotor.stopMotor();
+    public void off() {
+
+        intakeMotor.set(0);
     }
 }
